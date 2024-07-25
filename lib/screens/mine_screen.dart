@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart'; // Ensure you have this dependency in your pubspec.yaml
+import 'package:flutter_svg/flutter_svg.dart';
 
-class MineScreen extends StatelessWidget {
+import '../constants.dart'; // Ensure you have this dependency in your pubspec.yaml
+
+class MineScreen extends StatefulWidget {
   const MineScreen({super.key});
+
+  @override
+  State<MineScreen> createState() => _MineScreenState();
+}
+
+class _MineScreenState extends State<MineScreen>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,19 +127,98 @@ class MineScreen extends StatelessWidget {
                     width: 50,
                     height: 45,
                   ),
-                  Text(
-                    '2', // Ensure you have a variable _score in this widget
-                    style: const TextStyle(
-                      color: Color(
-                          0xFF0062FF), // Replace with your kPrimaryLightColor
+                  const Text(
+                    '2',
+                    style: TextStyle(
+                      color: kPrimaryLightColor,
                       fontSize: 35,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
+              const SizedBox(height: 20),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Daily Combo'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            'icons/dollar.svg',
+                            width: 20,
+                            height: 20,
+                          ),
+                          const Text(
+                            '+5,000,000',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildComboCard(
+                      image: 'icons/japan.svg', title: 'Licence Japan'),
+                  _buildComboCard(image: 'icons/hamster.svg', title: 'QA Team'),
+                  _buildComboCard(image: 'icons/meme.svg', title: 'Meme Coins'),
+                ],
+              ),
+              const SizedBox(height: 20),
+              TabBar(
+                controller: _tabController,
+                indicator: const BoxDecoration(
+                    color: kSecondaryColor,
+                    borderRadius: BorderRadius.all(const Radius.circular(10))),
+                dividerColor: Colors.transparent,
+                indicatorSize: TabBarIndicatorSize.tab,
+                tabs: const [
+                  Tab(text: 'Markets'),
+                  Tab(text: 'PR & Team'),
+                  Tab(text: 'Legal'),
+                  Tab(text: 'Special'),
+                ],
+              ),
+              SizedBox(
+                height: 200, // Set an appropriate height for the TabBarView
+                child: TabBarView(
+                  controller: _tabController,
+                  children: const [
+                    Center(child: Text('Markets')),
+                    Center(child: Text('PR & Team')),
+                    Center(child: Text('Legal')),
+                    Center(child: Text('Special')),
+                  ],
+                ),
+              ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildComboCard({required String image, required String title}) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              image,
+              width: 40,
+            ),
+            const SizedBox(height: 20),
+            Text(title),
+          ],
         ),
       ),
     );
