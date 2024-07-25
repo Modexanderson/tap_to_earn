@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   flutter_svg: ^2.0.10+1
+  flutter_native_splash: ^2.3.9
   google_fonts: ^6.2.1
 
 dev_dependencies:
@@ -88,3 +89,18 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  color: "#ffffff"
+  color_dark: "#080812"
+  image: assets/images/main-character.png
+  # Android 12 handles the splash screen differently than previous versions.  Please visit
+  # https://developer.android.com/guide/topics/ui/splash-screen
+  # Following are Android 12 specific parameter.
+  # android_12:
+  #   color: "#ffffff"
+  #   color_dark: "#080812"
+  #   image: assets/icons/logo_splash.png
+  #   fullscreen: true
+  web: true
+# dart run flutter_native_splash:create

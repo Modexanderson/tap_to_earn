@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 import 'screens/screens.dart';
 
+// flutter build web --web-renderer html --release
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
