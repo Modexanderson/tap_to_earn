@@ -1,5 +1,7 @@
-name: Build and Release APK
+name: Flutter Web Deploy
+
 on: push
+
 jobs:
   hosting:
     name: Deploy Website
@@ -8,10 +10,21 @@ jobs:
       # Checkout Repository
       - uses: actions/checkout@v3
 
-      # Install Flutter command
+      # Install Flutter
       - uses: subosito/flutter-action@v2.8.0
         with:
-          channel: "dev"
+          flutter-version: "latest"
+          channel: "stable"
+
+      # Verify Flutter and Dart SDK versions
+      - name: Verify Flutter and Dart SDK versions
+        run: |
+          flutter --version
+          dart --version
+
+      # Clear Flutter cache
+      - name: Clear Flutter cache
+        run: flutter clean
 
       # Build Website
       - name: Build Website
